@@ -158,7 +158,8 @@ def breadthFirstSearch(problem):
             child = successor[0]
             child_path = path + [successor[1]]
             child_cost = problem.getCostOfActions(child_path)
-            if (child not in visited) and (child not in (state[0] for state in front.list)):  # Checks also if already visited
+            if (child not in visited) and (
+                    child not in (state[0] for state in front.list)):  # Checks also if already visited
                 front.push((child, child_path, child_cost))
 
     return []
@@ -215,9 +216,43 @@ def nullHeuristic(state, problem=None):
 
 
 def aStarSearch(problem, heuristic=nullHeuristic):
+    from util import PriorityQueueWithFunction
+
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    "*** MY CODE HERE ***"
+
+    front = PriorityQueueWithFunction(lambda x: problem.getCostOfActions(x[1]) + heuristic(x[0], problem))  #
+    visited = []
+    node = problem.getStartState()
+    path = []
+
+    if problem.isGoalState(node):  # Checks if the start state is the goal
+        return []
+
+    # Pushes to the front the following fields:
+    # 1) Current node.
+    # 2) Path until this node.
+    # 3) Heuristic function
+    front.push((node, path, heuristic))
+
+    while not front.isEmpty():
+        (node, path, cost) = front.pop()
+
+        if node in visited:  # Don't recheck nodes
+            continue
+
+        visited.append(node)
+
+        if problem.isGoalState(node):
+            return path
+
+        for successor in problem.getSuccessors(node):
+            child = successor[0]
+            child_path = path + [successor[1]]
+            if child not in visited:
+                front.push((child, child_path, heuristic))
+
+    return []
 
 
 # Abbreviations
