@@ -554,9 +554,9 @@ class ClosestDotSearchAgent(SearchAgent):
         gameState.
         """
         # Here are some useful elements of the startState
-        gameState.getPacmanPosition()
-        gameState.getFood()
-        gameState.getWalls()
+        startPosition = gameState.getPacmanPosition()
+        food = gameState.getFood()
+        walls = gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
         "*** MY CODE HERE ***"
