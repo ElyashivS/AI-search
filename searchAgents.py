@@ -510,7 +510,7 @@ def foodHeuristic(state, problem):
 
     if food_list:
         for food in food_list:
-            distances[food] = util.manhattanDistance(close_food, food)  # Set Manhattan Distance to each food
+            distances[food] = util.manhattanDistance(position, food)  # Set Manhattan Distance to each food
 
         close_food = min(distances, key=distances.get)  # Sort list by closest food
 
@@ -554,9 +554,9 @@ class ClosestDotSearchAgent(SearchAgent):
         gameState.
         """
         # Here are some useful elements of the startState
-        startPosition = gameState.getPacmanPosition()
-        food = gameState.getFood()
-        walls = gameState.getWalls()
+        gameState.getPacmanPosition()
+        gameState.getFood()
+        gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
         "*** MY CODE HERE ***"
