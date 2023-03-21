@@ -171,7 +171,8 @@ def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** MY CODE HERE ***"
 
-    front = PriorityQueue()
+    front = PriorityQueue()  # Implementation of Priority Queue for better paths.
+    # For example, maybe we would rather safer and rich in food paths.
     visited = []
     node = problem.getStartState()
     path = []
@@ -193,9 +194,11 @@ def uniformCostSearch(problem):
             child_path = path + [successor[1]]
             child_cost = problem.getCostOfActions(child_path)
 
+            # Checks also if the node isn't in the Queue
             if (child not in visited) and (child not in (state[2][0] for state in front.heap)):
                 front.push((child, child_path), child_cost)
 
+            # If the node is in the queue (and hasn't explored), update node to the better cost.
             elif (child not in visited) and (child in (state[2][0] for state in front.heap)):
                 for state in front.heap:
                     if state[2][0] == child:
